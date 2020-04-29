@@ -35,17 +35,17 @@ ipak(packages)
 
 ```{r spat-data}
 
-MPA_Grid <- fread("./data/four_selected_intersect_touching.csv",header = TRUE) %>% 
+MPA_Grid <- fread(here::here("./data/four_selected_intersect_touching.csv"),header = TRUE) %>% 
   rename(INDEX = Seq,
          touching=MPA_touchi) %>% 
   select(INDEX, MPA, touching)
 
 
-Lon_Lat_DBEM <- fread("./data/Lon_Lat_DBEM.txt",header = FALSE)
+Lon_Lat_DBEM <- fread(here::here("./data/Lon_Lat_DBEM.txt"),header = FALSE)
 colnames(Lon_Lat_DBEM) <- c("INDEX","Longitude","Latitude")    
 
 #mpa_shp <- readOGR("./four_selected_shp/four_selected_mpas.shp")
-mpa_shp <- readOGR("./four_selected_shp/4_selected_dissolved.shp") #Updated to dissolved borders for GBR
+mpa_shp <- readOGR(here::here("./four_selected_shp/4_selected_dissolved.shp")) #Updated to dissolved borders for GBR
 mpa_sf <- st_as_sf(mpa_shp)
 mpa_sf <- mpa_sf %>% 
   dplyr::filter(!(grepl(NAME, pattern="Charlie-Gibbs"))) %>% 
@@ -73,7 +73,7 @@ path_world <- "./World_Land"
 file_name <- "TM_WORLD_BORDERS"
 
 #Load it!
-World_Land_sf <- st_read(dsn = path_world, 
+World_Land_sf <- st_read(dsn = here::here(path_world), 
                          layer = tools::file_path_sans_ext(file_name)
 )
 #World_Land_sf <- st_simplify(World_Land_sf, dTolerance=0.01)
@@ -86,7 +86,7 @@ World_Map <- ggplot(World_Land_sf) +
 
 
 ```{r dbem-data}
-mpa_85 <- data.table::fread("./data/MPA_RCP85_All_GCMs.csv")
+mpa_85 <- data.table::fread(here::here("./large_data/MPA_RCP85_All_GCMs.csv"))
 #mpa_26 <- data.table::fread("./Paper_Two_Results/MPA_RCP26_All_GCMs.csv")
 ```
 
@@ -179,7 +179,7 @@ for (mpa in mpa_names){
         height = 10,
         units = "in",
         filename = Plot_Name,
-        path= Path
+        path= here::here(Path)
       )
     }
   }
@@ -270,7 +270,7 @@ for (mpa in mpa_names){
         height = 10,
         units = "in",
         filename = Plot_Name,
-        path= Path
+        path= here::here(Path)
       )
     }
   }
@@ -369,7 +369,7 @@ for (mpa in mpa_names){
         height = 10,
         units = "in",
         filename = Plot_Name,
-        path= Path
+        path= here::here(Path)
       )
       assign(Plot_Name, p)
     }

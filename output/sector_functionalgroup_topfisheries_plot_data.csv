@@ -1,0 +1,217 @@
+MPA,MPA_Name,cg_name,time_period,Data_Type,RCP,Model,sector_type_id,total_sum,baseline_sum,delta_mean,sector_name,eez_name,baseline_importance
+BeringSea,Bering Sea,Cod-likes,End of Century,Abd,85,MPA,1,3376240.9794975533,1941460.704577377,73.90210224381046,Industrial,Alaska,74.04444366699914
+BeringSea,Bering Sea,Cod-likes,End of Century,Abd,85,MPA,3,452317.9153594966,202651.27975053742,123.20012778419036,Artisanal,Alaska,32.69783222006126
+BeringSea,Bering Sea,Cod-likes,End of Century,Catch,85,MPA,1,38925.186307546675,22750.733823331415,71.0942012236457,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,End of Century,Catch,85,MPA,3,2772.5392636055626,1242.211257880671,123.19386062687718,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,End of Century,nonuse_value,85,MPA,1,3060416249.5386157,1824465290.1514714,67.74318843218622,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,End of Century,nonuse_value,85,MPA,3,635425725.478561,285435858.51329565,122.61594208527336,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,End of Century,revenue,85,MPA,1,33881179.88976069,20785908.13026259,63.000719898460666,Industrial,Alaska,97.1826596525167
+BeringSea,Bering Sea,Cod-likes,End of Century,revenue,85,MPA,3,3894799.975471302,1749595.9205453445,122.61140013731304,Artisanal,Alaska,60.01228984899129
+BeringSea,Bering Sea,Cod-likes,Mid Century,Abd,85,MPA,1,2073841.392606508,1941460.704577377,6.818612795871546,Industrial,Alaska,74.04444366699914
+BeringSea,Bering Sea,Cod-likes,Mid Century,Abd,85,MPA,3,233541.03109164452,202651.27975053742,15.242810891267112,Artisanal,Alaska,32.69783222006126
+BeringSea,Bering Sea,Cod-likes,Mid Century,Catch,85,MPA,1,24187.309859832218,22750.733823331415,6.314416263037459,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Mid Century,Catch,85,MPA,3,1431.103086176399,1242.211257880671,15.206095347903654,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Mid Century,nonuse_value,85,MPA,1,1975239215.755956,1824465290.1514714,8.264006249851262,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Mid Century,nonuse_value,85,MPA,3,324216700.5198611,285435858.51329565,13.586534715209595,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Mid Century,revenue,85,MPA,1,22401960.77497027,20785908.13026259,7.774751214044088,Industrial,Alaska,97.1826596525167
+BeringSea,Bering Sea,Cod-likes,Mid Century,revenue,85,MPA,3,1986654.2480229745,1749595.9205453445,13.549318713759892,Artisanal,Alaska,60.01228984899129
+BeringSea,Bering Sea,Cod-likes,Today,Abd,85,MPA,1,1941460.704577377,1941460.704577377,0,Industrial,Alaska,74.04444366699914
+BeringSea,Bering Sea,Cod-likes,Today,Abd,85,MPA,3,202651.27975053742,202651.27975053742,0,Artisanal,Alaska,32.69783222006126
+BeringSea,Bering Sea,Cod-likes,Today,Catch,85,MPA,1,22750.733823331415,22750.733823331415,0,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Today,Catch,85,MPA,3,1242.211257880671,1242.211257880671,0,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Today,nonuse_value,85,MPA,1,1824465290.1514714,1824465290.1514714,0,Industrial,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Today,nonuse_value,85,MPA,3,285435858.51329565,285435858.51329565,0,Artisanal,Alaska,NA
+BeringSea,Bering Sea,Cod-likes,Today,revenue,85,MPA,1,20785908.13026259,20785908.13026259,0,Industrial,Alaska,97.1826596525167
+BeringSea,Bering Sea,Cod-likes,Today,revenue,85,MPA,3,1749595.9205453445,1749595.9205453445,0,Artisanal,Alaska,60.01228984899129
+BeringSea,Bering Sea,Flatfishes,End of Century,Abd,85,MPA,1,424834.03346871387,280537.6403030024,51.43566225546783,Industrial,Alaska,12.344938544302066
+BeringSea,Bering Sea,Flatfishes,End of Century,Abd,85,MPA,4,133419.3404454427,99950.59576870681,33.48528782578253,Recreational,Alaska,47.59125136637084
+BeringSea,Bering Sea,Flatfishes,End of Century,Catch,85,MPA,1,1252.9956384678464,826.6054614478346,51.58327604963695,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,End of Century,Catch,85,MPA,4,277.64400063944777,208.02609574752495,33.46594793396305,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,End of Century,nonuse_value,85,MPA,1,518102952.85811913,357594977.1877872,44.88541112422922,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,End of Century,nonuse_value,85,MPA,4,251457979.58935624,205425997.03196114,22.40806091851813,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,End of Century,revenue,85,MPA,1,1561286.678509511,1070429.2677133086,45.85612759307214,Industrial,Alaska,1.2557695587250979
+BeringSea,Bering Sea,Flatfishes,End of Century,revenue,85,MPA,4,523298.8599657596,427559.9856486398,22.391916346399196,Recreational,Alaska,38.23136487385118
+BeringSea,Bering Sea,Flatfishes,Mid Century,Abd,85,MPA,1,307531.26661773265,280537.6403030024,9.622105000090206,Industrial,Alaska,12.344938544302066
+BeringSea,Bering Sea,Flatfishes,Mid Century,Abd,85,MPA,4,110365.62783354889,99950.59576870681,10.42018007470735,Recreational,Alaska,47.59125136637084
+BeringSea,Bering Sea,Flatfishes,Mid Century,Catch,85,MPA,1,902.3553991059648,826.6054614478346,9.16397739805045,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Mid Century,Catch,85,MPA,4,229.70621902300027,208.02609574752495,10.421828664124833,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Mid Century,nonuse_value,85,MPA,1,381265906.9748893,357594977.1877872,6.619480500888458,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Mid Century,nonuse_value,85,MPA,4,221143936.68134436,205425997.03196114,7.651387787563103,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Mid Century,revenue,85,MPA,1,1140064.8729122335,1070429.2677133086,6.505390622183109,Industrial,Alaska,1.2557695587250979
+BeringSea,Bering Sea,Flatfishes,Mid Century,revenue,85,MPA,4,460280.10531625414,427559.9856486398,7.652755347995329,Recreational,Alaska,38.23136487385118
+BeringSea,Bering Sea,Flatfishes,Today,Abd,85,MPA,1,280537.6403030024,280537.6403030024,0,Industrial,Alaska,12.344938544302066
+BeringSea,Bering Sea,Flatfishes,Today,Abd,85,MPA,4,99950.59576870681,99950.59576870681,0,Recreational,Alaska,47.59125136637084
+BeringSea,Bering Sea,Flatfishes,Today,Catch,85,MPA,1,826.6054614478346,826.6054614478346,0,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Today,Catch,85,MPA,4,208.02609574752495,208.02609574752495,0,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Today,nonuse_value,85,MPA,1,357594977.1877872,357594977.1877872,0,Industrial,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Today,nonuse_value,85,MPA,4,205425997.03196114,205425997.03196114,0,Recreational,Alaska,NA
+BeringSea,Bering Sea,Flatfishes,Today,revenue,85,MPA,1,1070429.2677133086,1070429.2677133086,0,Industrial,Alaska,1.2557695587250979
+BeringSea,Bering Sea,Flatfishes,Today,revenue,85,MPA,4,427559.9856486398,427559.9856486398,0,Recreational,Alaska,38.23136487385118
+BeringSea,Bering Sea,Herring-likes,End of Century,Abd,85,MPA,2,86621.83916902704,55729.73895768753,55.43198441104157,Subsistence,Alaska,8.421972692712894
+BeringSea,Bering Sea,Herring-likes,End of Century,Catch,85,MPA,2,1360.4345294576674,874.6789470219322,55.53530059110421,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,End of Century,nonuse_value,85,MPA,2,112684311.0006278,71482125.7914678,57.63984318171739,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,End of Century,revenue,85,MPA,2,1769434.3744197092,1121757.0150916958,57.737758767220214,Subsistence,Alaska,5.626535287098285
+BeringSea,Bering Sea,Herring-likes,Mid Century,Abd,85,MPA,2,73592.46624783994,55729.73895768753,32.052415145376116,Subsistence,Alaska,8.421972692712894
+BeringSea,Bering Sea,Herring-likes,Mid Century,Catch,85,MPA,2,1155.3078248758363,874.6789470219322,32.08364381118086,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,Mid Century,nonuse_value,85,MPA,2,95222223.19610527,71482125.7914678,33.2112358743969,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,Mid Century,revenue,85,MPA,2,1494609.0604633233,1121757.0150916958,33.23821829107521,Subsistence,Alaska,5.626535287098285
+BeringSea,Bering Sea,Herring-likes,Today,Abd,85,MPA,2,55729.73895768753,55729.73895768753,0,Subsistence,Alaska,8.421972692712894
+BeringSea,Bering Sea,Herring-likes,Today,Catch,85,MPA,2,874.6789470219322,874.6789470219322,0,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,Today,nonuse_value,85,MPA,2,71482125.7914678,71482125.7914678,0,Subsistence,Alaska,NA
+BeringSea,Bering Sea,Herring-likes,Today,revenue,85,MPA,2,1121757.0150916958,1121757.0150916958,0,Subsistence,Alaska,5.626535287098285
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Abd,85,MPA,2,862770.7208849308,575252.1830778185,49.98130320319317,Subsistence,Alaska,64.62571706197724
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Abd,85,MPA,3,862749.6987128274,575233.3489790943,49.98255929424257,Artisanal,Alaska,30.572813813083677
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Abd,85,MPA,4,862749.6987128274,575233.3489790943,49.98255929424257,Recreational,Alaska,41.029835465489604
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Catch,85,MPA,2,6089.867733572829,4110.346966438382,48.15945669057965,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Catch,85,MPA,3,6089.595152332912,4110.102684529271,48.161630492946,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,Catch,85,MPA,4,6089.595152332912,4110.102684529271,48.161630492946,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,nonuse_value,85,MPA,2,1251259244.7158692,854885300.3205211,46.36574570257976,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,nonuse_value,85,MPA,3,1251221666.5195832,854853876.499794,46.36673014138045,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,nonuse_value,85,MPA,4,1251221666.5195832,854853876.499794,46.36673014138045,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,revenue,85,MPA,2,8407930.594691595,5715795.507407493,47.099919578913884,Subsistence,Alaska,75.20528260664587
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,revenue,85,MPA,3,8407443.241127478,5715387.879819674,47.1018838601159,Artisanal,Alaska,31.956857746381296
+BeringSea,Bering Sea,"Salmon, smelts, etc",End of Century,revenue,85,MPA,4,8407443.241127478,5715387.879819674,47.1018838601159,Recreational,Alaska,20.28999324739154
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Abd,85,MPA,2,672523.6212228909,575252.1830778185,16.909355758483724,Subsistence,Alaska,64.62571706197724
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Abd,85,MPA,3,672505.9755497596,575233.3489790943,16.91011599784707,Artisanal,Alaska,30.572813813083677
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Abd,85,MPA,4,672505.9755497596,575233.3489790943,16.91011599784707,Recreational,Alaska,41.029835465489604
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Catch,85,MPA,2,4834.01568003405,4110.346966438382,17.60602497805015,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Catch,85,MPA,3,4833.786729785808,4110.102684529271,17.60744440718081,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,Catch,85,MPA,4,4833.786729785808,4110.102684529271,17.60744440718081,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,nonuse_value,85,MPA,2,984589987.5222389,854885300.3205211,15.172174226541,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,nonuse_value,85,MPA,3,984562691.3143603,854853876.499794,15.173214789135661,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,nonuse_value,85,MPA,4,984562691.3143603,854853876.499794,15.173214789135661,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,revenue,85,MPA,2,6662937.808420198,5715795.507407493,16.570612083396583,Subsistence,Alaska,75.20528260664587
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,revenue,85,MPA,3,6662583.629433665,5715387.879819674,16.572729087354187,Artisanal,Alaska,31.956857746381296
+BeringSea,Bering Sea,"Salmon, smelts, etc",Mid Century,revenue,85,MPA,4,6662583.629433665,5715387.879819674,16.572729087354187,Recreational,Alaska,20.28999324739154
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Abd,85,MPA,2,575252.1830778185,575252.1830778185,0,Subsistence,Alaska,64.62571706197724
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Abd,85,MPA,3,575233.3489790943,575233.3489790943,0,Artisanal,Alaska,30.572813813083677
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Abd,85,MPA,4,575233.3489790943,575233.3489790943,0,Recreational,Alaska,41.029835465489604
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Catch,85,MPA,2,4110.346966438382,4110.346966438382,0,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Catch,85,MPA,3,4110.102684529271,4110.102684529271,0,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,Catch,85,MPA,4,4110.102684529271,4110.102684529271,0,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,nonuse_value,85,MPA,2,854885300.3205211,854885300.3205211,0,Subsistence,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,nonuse_value,85,MPA,3,854853876.499794,854853876.499794,0,Artisanal,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,nonuse_value,85,MPA,4,854853876.499794,854853876.499794,0,Recreational,Alaska,NA
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,revenue,85,MPA,2,5715795.507407493,5715795.507407493,0,Subsistence,Alaska,75.20528260664587
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,revenue,85,MPA,3,5715387.879819674,5715387.879819674,0,Artisanal,Alaska,31.956857746381296
+BeringSea,Bering Sea,"Salmon, smelts, etc",Today,revenue,85,MPA,4,5715387.879819674,5715387.879819674,0,Recreational,Alaska,20.28999324739154
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,Abd,85,MPA,1,5413.475276756206,6211.581108943321,-12.84867440655354,Industrial,Australia,37.802324974580735
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,Abd,85,MPA,3,2196.525390791776,2141.5427586986784,2.567430973290861,Artisanal,Australia,16.338698462588845
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,Catch,85,MPA,1,332.74410103887095,383.0191038275384,-13.125977865402955,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,Catch,85,MPA,3,62.96616536961868,61.38228587913878,2.5803527317287394,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,nonuse_value,85,MPA,1,19976377.73244841,20690875.010229807,-3.453199912657833,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,nonuse_value,85,MPA,3,3297083.2413611556,3184401.6774799684,3.5385474350823656,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,revenue,85,MPA,1,1170049.2870393838,1217954.6610892788,-3.9332641501655545,Industrial,Australia,10.257326140169559
+GreatBarrierReef,Great Barrier Reef,Crustaceans,End of Century,revenue,85,MPA,3,94515.06555345845,91273.3714285247,3.5516318442036448,Artisanal,Australia,1.6651486099066117
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,Abd,85,MPA,1,5888.811776606641,6211.581108943321,-5.196250788256839,Industrial,Australia,37.802324974580735
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,Abd,85,MPA,3,2074.4552891844332,2141.5427586986784,-3.1326700922381443,Artisanal,Australia,16.338698462588845
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,Catch,85,MPA,1,361.1464718956175,383.0191038275384,-5.7105851152974045,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,Catch,85,MPA,3,59.47086435611539,61.38228587913878,-3.113962759202156,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,nonuse_value,85,MPA,1,20570011.095368903,20690875.010229807,-0.5841411482170169,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,nonuse_value,85,MPA,3,3092430.4644229757,3184401.6774799684,-2.888178765493421,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,revenue,85,MPA,1,1202402.0621916826,1217954.6610892788,-1.2769439942605616,Industrial,Australia,10.257326140169559
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Mid Century,revenue,85,MPA,3,88654.32882550643,91273.3714285247,-2.869448736282541,Artisanal,Australia,1.6651486099066117
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,Abd,85,MPA,1,6211.581108943321,6211.581108943321,0,Industrial,Australia,37.802324974580735
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,Abd,85,MPA,3,2141.5427586986784,2141.5427586986784,0,Artisanal,Australia,16.338698462588845
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,Catch,85,MPA,1,383.0191038275384,383.0191038275384,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,Catch,85,MPA,3,61.38228587913878,61.38228587913878,0,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,nonuse_value,85,MPA,1,20690875.010229807,20690875.010229807,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,nonuse_value,85,MPA,3,3184401.6774799684,3184401.6774799684,0,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,revenue,85,MPA,1,1217954.6610892788,1217954.6610892788,0,Industrial,Australia,10.257326140169559
+GreatBarrierReef,Great Barrier Reef,Crustaceans,Today,revenue,85,MPA,3,91273.3714285247,91273.3714285247,0,Artisanal,Australia,1.6651486099066117
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Abd,85,MPA,1,529657.9641883194,535610.7028219409,-1.1113927713278762,Industrial,Australia,9.61460148297069
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Abd,85,MPA,2,77766.38754707962,49280.36031391323,57.804015741183576,Subsistence,Australia,43.871763724469396
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Abd,85,MPA,3,135890.65365715313,104498.33246756259,30.040978117363792,Artisanal,Australia,18.307662905739132
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Abd,85,MPA,4,178814.81281289086,140876.1991464925,26.93046369525292,Recreational,Australia,38.45828533753751
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Catch,85,MPA,1,2820.3800534927327,2883.7322782898186,-2.196883021147046,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Catch,85,MPA,2,202.88101415885146,129.35092742977648,56.84542677051453,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Catch,85,MPA,3,568.85840271451,502.26607160923766,13.258377356032344,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,Catch,85,MPA,4,684.8621618784207,592.8525464049948,15.519814502166529,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,nonuse_value,85,MPA,1,1360942408.5695474,1081788204.226684,25.804885212481736,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,nonuse_value,85,MPA,2,396275166.92550194,205377337.62756824,92.949802301999,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,nonuse_value,85,MPA,3,725237749.3181616,412097670.7803389,75.98685960657522,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,nonuse_value,85,MPA,4,889071298.7127686,517746495.4636222,71.71942379187698,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,revenue,85,MPA,1,6935026.892613322,5622071.454836445,23.35358858961839,Industrial,Australia,0.5401574539478888
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,revenue,85,MPA,2,1012669.7545864588,524012.2131742572,93.25308249059863,Subsistence,Australia,25.26124528073858
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,revenue,85,MPA,3,3389251.998365798,1966853.5316346774,72.31847434765245,Artisanal,Australia,5.209128374029337
+GreatBarrierReef,Great Barrier Reef,Perch-likes,End of Century,revenue,85,MPA,4,3818207.1307285037,2221591.7202769476,71.868084305451,Recreational,Australia,29.487799534115393
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Abd,85,MPA,1,535036.7252407692,535610.7028219409,-0.10716320233101877,Industrial,Australia,9.61460148297069
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Abd,85,MPA,2,57923.85951592214,49280.36031391323,17.539439945143016,Subsistence,Australia,43.871763724469396
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Abd,85,MPA,3,114601.07319959279,104498.33246756259,9.667848752673828,Artisanal,Australia,18.307662905739132
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Abd,85,MPA,4,151671.28439823375,140876.1991464925,7.662816939372282,Recreational,Australia,38.45828533753751
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Catch,85,MPA,1,2895.506375375154,2883.7322782898186,0.4082936954299433,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Catch,85,MPA,2,153.04742092688457,129.35092742977648,18.31953892249649,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Catch,85,MPA,3,522.7305918178414,502.26607160923766,4.0744381046954565,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,Catch,85,MPA,4,620.3998303604149,592.8525464049948,4.64656584887159,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,nonuse_value,85,MPA,1,1157724849.4245026,1081788204.226684,7.019548272122435,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,nonuse_value,85,MPA,2,248708839.8282358,205377337.62756824,21.098482773812663,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,nonuse_value,85,MPA,3,497715926.33242667,412195288.7979068,20.747601891308694,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,nonuse_value,85,MPA,4,618002212.2124388,517746495.4636222,19.36386197245844,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,revenue,85,MPA,1,6057102.385689145,5622071.454836445,7.737911806127262,Industrial,Australia,0.5401574539478888
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,revenue,85,MPA,2,637951.1204372958,524012.2131742572,21.743559481723157,Subsistence,Australia,25.26124528073858
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,revenue,85,MPA,3,2390789.447156346,1969800.5057308765,21.372161302662747,Artisanal,Australia,5.209128374029337
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Mid Century,revenue,85,MPA,4,2689991.542934887,2221591.7202769476,21.083974088611924,Recreational,Australia,29.487799534115393
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Abd,85,MPA,1,535610.7028219409,535610.7028219409,0,Industrial,Australia,9.61460148297069
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Abd,85,MPA,2,49280.36031391323,49280.36031391323,0,Subsistence,Australia,43.871763724469396
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Abd,85,MPA,3,104498.33246756259,104498.33246756259,0,Artisanal,Australia,18.307662905739132
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Abd,85,MPA,4,140876.1991464925,140876.1991464925,0,Recreational,Australia,38.45828533753751
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Catch,85,MPA,1,2883.7322782898186,2883.7322782898186,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Catch,85,MPA,2,129.35092742977648,129.35092742977648,0,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Catch,85,MPA,3,502.26607160923766,502.26607160923766,0,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,Catch,85,MPA,4,592.8525464049948,592.8525464049948,0,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,nonuse_value,85,MPA,1,1081788204.226684,1081788204.226684,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,nonuse_value,85,MPA,2,205377337.62756824,205377337.62756824,0,Subsistence,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,nonuse_value,85,MPA,3,412249919.9205203,412249919.9205203,0,Artisanal,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,nonuse_value,85,MPA,4,517746495.4636222,517746495.4636222,0,Recreational,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,revenue,85,MPA,1,5622071.454836445,5622071.454836445,0,Industrial,Australia,0.5401574539478888
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,revenue,85,MPA,2,524012.2131742572,524012.2131742572,0,Subsistence,Australia,25.26124528073858
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,revenue,85,MPA,3,1971484.4468164728,1971484.4468164728,0,Artisanal,Australia,5.209128374029337
+GreatBarrierReef,Great Barrier Reef,Perch-likes,Today,revenue,85,MPA,4,2221591.7202769476,2221591.7202769476,0,Recreational,Australia,29.487799534115393
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,End of Century,Abd,85,MPA,1,92119.0662517969,97900.11074592716,-5.905043875929179,Industrial,Australia,18.619608431947416
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,End of Century,Catch,85,MPA,1,591.8361264885018,656.3813366157603,-9.833492594418894,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,End of Century,nonuse_value,85,MPA,1,250033087.20201534,191084138.65057692,30.84973403220793,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,End of Century,revenue,85,MPA,1,1178206.2744671153,992648.8710207668,18.69315614649669,Industrial,Australia,85.5445341768369
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Mid Century,Abd,85,MPA,1,98682.14501464156,97900.11074592716,0.7988083596186681,Industrial,Australia,18.619608431947416
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Mid Century,Catch,85,MPA,1,650.6629544633544,656.3813366157603,-0.8711981638432034,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Mid Century,nonuse_value,85,MPA,1,204885796.30447114,191084138.65057692,7.222817001641568,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Mid Century,revenue,85,MPA,1,1032816.9274212398,992648.8710207668,4.046552368428841,Industrial,Australia,85.5445341768369
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Today,Abd,85,MPA,1,97900.11074592716,97900.11074592716,0,Industrial,Australia,18.619608431947416
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Today,Catch,85,MPA,1,656.3813366157603,656.3813366157603,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Today,nonuse_value,85,MPA,1,191084138.65057692,191084138.65057692,0,Industrial,Australia,NA
+GreatBarrierReef,Great Barrier Reef,Tuna & billfishes,Today,revenue,85,MPA,1,992648.8710207668,992648.8710207668,0,Industrial,Australia,85.5445341768369
+Palau,Palau,Perch-likes,End of Century,Abd,85,MPA,2,0.6299984960105094,5.147303518939687,-87.7606110909837,Subsistence,Palau,93.72814374691687
+Palau,Palau,Perch-likes,End of Century,Abd,85,MPA,3,1.1105213653636479,698.3139376376824,-99.84097104389461,Artisanal,Palau,90.2821163334848
+Palau,Palau,Perch-likes,End of Century,Catch,85,MPA,2,0.007670957147670896,0.02651494938731722,-71.06931250134646,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,End of Century,Catch,85,MPA,3,0.010174805030341683,20.720893933461436,-99.95089591663846,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,End of Century,nonuse_value,85,MPA,2,1220.8706130576095,7884.55273329059,-84.51566430771929,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,End of Century,nonuse_value,85,MPA,3,1939.7328256099065,71808.88343103946,-97.29875645890984,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,End of Century,revenue,85,MPA,2,14.914601880258969,41.888633435265376,-64.39463248829071,Subsistence,Palau,98.14583362125647
+Palau,Palau,Perch-likes,End of Century,revenue,85,MPA,3,18.660358312734477,845.3602166268254,-97.79261456291457,Artisanal,Palau,90.66936543344654
+Palau,Palau,Perch-likes,Mid Century,Abd,85,MPA,2,0.6781384287190598,5.147303518939687,-86.82536543213693,Subsistence,Palau,93.72814374691687
+Palau,Palau,Perch-likes,Mid Century,Abd,85,MPA,3,449.9333475824579,698.3139376376824,-35.56861415303669,Artisanal,Palau,90.2821163334848
+Palau,Palau,Perch-likes,Mid Century,Catch,85,MPA,2,0.00819488081160806,0.02651494938731722,-69.0933567630045,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,Mid Century,Catch,85,MPA,3,13.37134713513914,20.720893933461436,-35.46925543812458,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,Mid Century,nonuse_value,85,MPA,2,1233.4198639491938,7884.55273329059,-84.35650181219054,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,Mid Century,nonuse_value,85,MPA,3,2020235.368490977,2554109.233491207,-20.90254629675642,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,Mid Century,revenue,85,MPA,2,14.897965696600275,41.888633435265376,-64.43434775779076,Subsistence,Palau,98.14583362125647
+Palau,Palau,Perch-likes,Mid Century,revenue,85,MPA,3,60519.1952540774,76590.10952798856,-20.98301513466085,Artisanal,Palau,90.66936543344654
+Palau,Palau,Perch-likes,Today,Abd,85,MPA,2,5.147303518939687,5.147303518939687,0,Subsistence,Palau,93.72814374691687
+Palau,Palau,Perch-likes,Today,Abd,85,MPA,3,698.3139376376824,698.3139376376824,0,Artisanal,Palau,90.2821163334848
+Palau,Palau,Perch-likes,Today,Catch,85,MPA,2,0.02651494938731722,0.02651494938731722,0,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,Today,Catch,85,MPA,3,20.720893933461436,20.720893933461436,0,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,Today,nonuse_value,85,MPA,2,7884.55273329059,7884.55273329059,0,Subsistence,Palau,NA
+Palau,Palau,Perch-likes,Today,nonuse_value,85,MPA,3,2600258.5564538874,2600258.5564538874,0,Artisanal,Palau,NA
+Palau,Palau,Perch-likes,Today,revenue,85,MPA,2,41.888633435265376,41.888633435265376,0,Subsistence,Palau,98.14583362125647
+Palau,Palau,Perch-likes,Today,revenue,85,MPA,3,77984.07333685858,77984.07333685858,0,Artisanal,Palau,90.66936543344654
+Palau,Palau,Tuna & billfishes,End of Century,Abd,85,MPA,1,4.810481551055582,167834.7332413958,-99.997133798554,Industrial,Palau,99.41386071026942
+Palau,Palau,Tuna & billfishes,End of Century,Catch,85,MPA,1,0.010005983640635353,1075.764051284665,-99.99906987190836,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,End of Century,nonuse_value,85,MPA,1,7196.480400379142,6521592.427586261,-99.8896514849665,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,End of Century,revenue,85,MPA,1,14.968951526390466,29531.50234693456,-99.94931192002853,Industrial,Palau,99.9976465873741
+Palau,Palau,Tuna & billfishes,Mid Century,Abd,85,MPA,1,85891.55369886037,167834.7332413958,-48.8237315125213,Industrial,Palau,99.41386071026942
+Palau,Palau,Tuna & billfishes,Mid Century,Catch,85,MPA,1,518.8936166813563,1075.764051284665,-51.76510908115032,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,Mid Century,nonuse_value,85,MPA,1,343668284.87481606,598240068.5506493,-42.553449201853354,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,Mid Century,revenue,85,MPA,1,1306416.2043158119,2487515.087798006,-47.481074156126,Industrial,Palau,99.9976465873741
+Palau,Palau,Tuna & billfishes,Today,Abd,85,MPA,1,167834.7332413958,167834.7332413958,0,Industrial,Palau,99.41386071026942
+Palau,Palau,Tuna & billfishes,Today,Catch,85,MPA,1,1075.764051284665,1075.764051284665,0,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,Today,nonuse_value,85,MPA,1,598240068.5506493,598240068.5506493,0,Industrial,Palau,NA
+Palau,Palau,Tuna & billfishes,Today,revenue,85,MPA,1,2487515.087798006,2487515.087798006,0,Industrial,Palau,99.9976465873741

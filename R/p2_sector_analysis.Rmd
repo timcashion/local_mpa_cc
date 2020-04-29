@@ -40,7 +40,7 @@ theme_set(theme_classic())
 
 ```{r}
 # Data ####
-MPA_Grid <- fread("./data/four_selected_intersect_touching.csv",header = TRUE) %>% 
+MPA_Grid <- fread(here::here("./data/four_selected_intersect_touching.csv"),header = TRUE) %>% 
   rename(INDEX = Seq,
          touching=MPA_touchi) %>% 
   select(INDEX, MPA, touching)
@@ -68,7 +68,7 @@ eez_df <- tibble(MPA= c("GreatBarrierReef", "Palau", "BeringSea"),
 Result_Path <- "."
 
 
-Lon_Lat_DBEM <- fread("./data/Lon_Lat_DBEM.txt",header = FALSE)
+Lon_Lat_DBEM <- fread(here::here("./data/Lon_Lat_DBEM.txt"),header = FALSE)
 colnames(Lon_Lat_DBEM) <- c("INDEX","Longitude","Latitude")    
 
 #Load MPA data for matching indexes
@@ -90,10 +90,10 @@ RCP="85"
 #Function for reading sector data
 read_sector_results <- function(Model=NA, RCP="85", Sector=NA){
   
-  top_path <- paste(Result_Path, "/data/", Model, "_RCP", RCP,"_S",Sector , "_Top.csv", sep="")
-  sector_path  <- paste(Result_Path, "/data/", Model, "_RCP", RCP,"_S",Sector ,".csv", sep="")
-  df_top <- fread(top_path)
-  df_sector_result <- fread(sector_path)
+  top_path <- paste(Result_Path, "/large_data/", Model, "_RCP", RCP,"_S",Sector , "_Top.csv", sep="")
+  sector_path  <- paste(Result_Path, "/large_data/", Model, "_RCP", RCP,"_S",Sector ,".csv", sep="")
+  df_top <- fread(here::here(top_path))
+  df_sector_result <- fread(here::here(sector_path))
   
   #Align sector data to MPAs based on coordinates
   df_top <- df_top %>% 
@@ -124,7 +124,7 @@ sector_data_top <- sector_data_top %>%
   left_join(mpa_df)
 
 
-top3_sectors <- read_csv("./data/top3_fisheries.csv")
+top3_sectors <- read_csv(here::here("./output/top3_fisheries.csv"))
 top3_sectors <- top3_sectors %>% 
   group_by(eez_name, sector_type, cg_name) %>% 
   summarize(catch = sum(catch), 
@@ -142,7 +142,6 @@ sector_data_top <- sector_data_top %>%
   left_join(top3_sectors) %>% 
   filter(is.na(catch)==F)
 
-#Top3_fisheries? where is this from? Old name? 
 # top3_fisheries <- top3_fisheries %>% 
 #   mutate(eez_name = if_else(eez_name=="Alaska", "BeringSea", if_else(
 #                             eez_name=="Australia", "GreatBarrierReef", "Palau")))
@@ -239,7 +238,7 @@ sector_data_top_delta <- sector_data_top_delta %>%
 
 
 sector_data_top_delta_output <- sector_data_top_delta %>% filter(Data_Type != "flexibility")
-write_csv(sector_data_top_delta_output, "./output/sector_functionalgroup_topfisheries_plot_data.csv")
+write_csv(sector_data_top_delta_output, here::here("./output/sector_functionalgroup_topfisheries_plot_data.csv"))
 #sector_data_top_delta$delta_mean[sector_data_top_delta$delta_mean>200] <- 199 
 
 
@@ -405,8 +404,8 @@ cowplot::plot_grid(p_abd, bs_abd, gbr_abd, leg, align="h", nrow=1,
                    #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
                    )
 
-ggsave("./figs/Delta_Abundance_MidCentury.png", dpi=1200, width = 15, height = 8)
-ggsave("./figs/Delta_Abundance_MidCentury_lowres.png", dpi=100, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury.png"), dpi=1200, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury_lowres.png"), dpi=100, width = 15, height = 8)
 
 
 ```
@@ -429,8 +428,8 @@ cowplot::plot_grid(p_abd, bs_abd, gbr_abd, leg, align="h", nrow=1,
                    #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
                    )
 
-ggsave("./figs/Delta_Abundance_MidCentury_BaselineSizeFill.png", dpi=1200, width = 15, height = 8)
-ggsave("./figs/Delta_Abundance_MidCentury_BaselineSizeFill_lowres.png", dpi=100, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury_BaselineSizeFill.png"), dpi=1200, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury_BaselineSizeFill_lowres.png"), dpi=100, width = 15, height = 8)
 
 
 ```
@@ -439,8 +438,8 @@ ggsave("./figs/Delta_Abundance_MidCentury_BaselineSizeFill_lowres.png", dpi=100,
 ```{r}
 sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa=NA, measure="Abd") 
-ggsave("./figs/Delta_Abundance_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_Abundance_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Abundance_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 
 ```
 
@@ -449,8 +448,8 @@ ggsave("./figs/Delta_Abundance_MidCentury_Bubble2_lowres.png", dpi=100, width = 
 ```{r}
 sector_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa=NA, measure="revenue") 
-ggsave("./figs/Delta_Revenue_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 ```
 
 
@@ -458,19 +457,19 @@ ggsave("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png", dpi=100, width = 12
 ```{r}
 mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa="BeringSea")
-ggsave("./figs/Delta_BeringSea_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_BeringSea_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_BeringSea_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_BeringSea_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 
 mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa="GreatBarrierReef")
-ggsave("./figs/Delta_GBR_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_GBR_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_GBR_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_GBR_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 
 
 mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa="Palau")
-ggsave("./figs/Delta_Palau_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_Palau_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Palau_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Palau_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 
 
 ```
@@ -480,8 +479,8 @@ ggsave("./figs/Delta_Palau_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, 
 ```{r}
 mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
                                    mpa=NA, measure="revenue") 
-ggsave("./figs/Delta_Revenue_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
-ggsave("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury_Bubble2.png"), dpi=300, width = 12, height = 6)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png"), dpi=100, width = 12, height = 6)
 ```
 
 
@@ -505,7 +504,7 @@ cowplot::plot_grid(p_rev, bs_rev, gbr_rev, leg, align="h", nrow=1,
                    #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
                    )
 
-ggsave("./figs/Delta_Revenue_MidCentury.png", dpi=1200, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury.png"), dpi=1200, width = 15, height = 8)
 
 
 ```
@@ -530,7 +529,7 @@ cowplot::plot_grid(p_rev, bs_rev, gbr_rev, leg, align="h", nrow=1,
                    #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
                    )
 
-ggsave("./figs/Delta_Revenue_MidCentury_BaselineSizeFill.png", dpi=1200, width = 15, height = 8)
+ggsave(here::here("./figs/Delta_Revenue_MidCentury_BaselineSizeFill.png"), dpi=1200, width = 15, height = 8)
 
 
 ```
