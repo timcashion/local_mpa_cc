@@ -1,0 +1,538 @@
+---
+title: "P2_Sector_Analysis"
+author: "Tim Cashion"
+date: "3/19/2020"
+output: html_document
+---
+
+
+```{r setup, eval=T, echo=F, warning=F,message=F, results = 'hide'}
+
+#### READ ME !!! ####
+# This chunk runs all the pkgs needed for the analysis
+
+#### Set up packages ####
+
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE)
+  sapply(pkg, require, character.only = TRUE)
+}
+
+
+#### Library ###
+packages <- c(
+  "readxl", # Read dataframe
+  "tidyverse", # Data manipulation
+  "data.table",
+  "viridis" 
+  # "ggrepel",
+  # "gridExtra"
+)
+
+ipak(packages)
+theme_set(theme_classic())
+
+```
+
+
+
+```{r}
+# Data ####
+MPA_Grid <- fread("./data/four_selected_intersect_touching.csv",header = TRUE) %>% 
+  rename(INDEX = Seq,
+         touching=MPA_touchi) %>% 
+  select(INDEX, MPA, touching)
+
+#List of species #Do I need this for this analysis? 
+# mpa_model_species <- data_frame(x = list.files("/nfs/mpasandclimatechange-data/Data/DBEM/MPA_Model/GFDL26"))
+# fish_model_species <- data_frame(x = list.files("/nfs/mpasandclimatechange-data/Data/DBEM/Fish_Model/GFDL26"))
+
+sector_df <- tibble(sector_type_id = c(1:4), 
+       sector_name = c("Industrial", "Subsistence", "Artisanal", "Recreational"))
+
+mpa_df <- tibble(MPA= c("GreatBarrierReef", "Palau", "BeringSea"),
+                 MPA_Name = c("Great Barrier Reef", "Palau", "Bering Sea"))
+
+eez_df <- tibble(MPA= c("GreatBarrierReef", "Palau", "BeringSea"),
+                 eez_name = c("Australia", "Palau", "Alaska"))
+
+```
+
+
+
+
+```{r sector-results-read}
+
+Result_Path <- "."
+
+
+Lon_Lat_DBEM <- fread("./data/Lon_Lat_DBEM.txt",header = FALSE)
+colnames(Lon_Lat_DBEM) <- c("INDEX","Longitude","Latitude")    
+
+#Load MPA data for matching indexes
+mpas <- left_join(MPA_Grid, Lon_Lat_DBEM)
+mpas_summary <- mpas %>% 
+  group_by(MPA) %>% 
+  summarize(min_lon = min(Longitude),
+            min_lat = min(Latitude),
+            max_lon = max(Longitude),
+            max_lat = max(Latitude)
+            )
+
+mpa_names <- mpas_summary$MPA
+
+Model = "MPA"
+Sector = 1 
+RCP="85"
+
+#Function for reading sector data
+read_sector_results <- function(Model=NA, RCP="85", Sector=NA){
+  
+  top_path <- paste(Result_Path, "/data/", Model, "_RCP", RCP,"_S",Sector , "_Top.csv", sep="")
+  sector_path  <- paste(Result_Path, "/data/", Model, "_RCP", RCP,"_S",Sector ,".csv", sep="")
+  df_top <- fread(top_path)
+  df_sector_result <- fread(sector_path)
+  
+  #Align sector data to MPAs based on coordinates
+  df_top <- df_top %>% 
+    left_join(mpas) %>% 
+    filter(is.na(MPA)==F) %>% 
+    mutate(sector_type_id=Sector) %>% 
+    filter(is.na(cg_name)==F)
+  df_sector_result <- df_sector_result %>% 
+    left_join(mpas) %>% 
+    filter(is.na(MPA)==F) %>% 
+    mutate(sector_type_id=Sector)
+  return(list(df_sector_result, df_top))
+}
+
+#Compile sector data 
+sectors <- c(1:4)
+sector_data_full <- tibble()
+sector_data_top <- tibble()
+
+for (sector in sectors){
+  sector_result <- read_sector_results(Model="MPA", RCP="85", Sector=sector)
+  sector_data_top <- bind_rows(sector_data_top, sector_result[[2]])
+  sector_data_full <- bind_rows(sector_data_full, sector_result[[1]])
+}
+
+sector_data_top <- sector_data_top %>% 
+  filter(MPA != "CharlieGibbs") %>% 
+  left_join(mpa_df)
+
+
+top3_sectors <- read_csv("./data/top3_fisheries.csv")
+top3_sectors <- top3_sectors %>% 
+  group_by(eez_name, sector_type, cg_name) %>% 
+  summarize(catch = sum(catch), 
+            value = sum(value), 
+            catch_perc = sum(catch_perc),
+            value_perc = sum(value_perc))
+
+
+sector_type_df <- tibble(sector_type = c("Industrial", "Subsistence", "Artisanal", "Recreational"),
+                    sector_type_id = c(1,2,3,4))
+
+sector_data_top <- sector_data_top %>% 
+  left_join(eez_df) %>% 
+  left_join(sector_type_df) %>% 
+  left_join(top3_sectors) %>% 
+  filter(is.na(catch)==F)
+
+#Top3_fisheries? where is this from? Old name? 
+# top3_fisheries <- top3_fisheries %>% 
+#   mutate(eez_name = if_else(eez_name=="Alaska", "BeringSea", if_else(
+#                             eez_name=="Australia", "GreatBarrierReef", "Palau")))
+
+# sectors <- unique(top3_fisheries$sector_type)
+# for (mpa in mpa_names){
+#   for (sector in sectors){
+#     paste(mpa, sector)
+#     cg_list <- top3_fisheries %>% filter(sector==sector) %>% filter(eez_name==mpa) %>% pull(cg_name)
+#     #sector_data_top <- sector_data_top %>% filter()
+#   }
+# }
+
+```
+
+```{r sector-results-plot, eval=F}
+
+
+sector_data_top_plot <- sector_data_top %>% 
+  filter(Measure=="Mean") %>% 
+  #filter(time_period != "End of Century") %>% 
+  filter(Data_Type %in% c("Abd", "revenue")) %>% 
+  group_by(MPA, cg_name, time_period, Data_Type, RCP, Model, sector_type_id) %>% 
+  summarise(total=sum(total)) %>% 
+  left_join(sector_df)
+
+sector_data_top_plot$time_period <- forcats::fct_relevel(sector_data_top_plot$time_period, c("Today", "Mid Century", "End of Century"))
+sector_data_top_plot$sector_name <- forcats::fct_relevel(sector_data_top_plot$sector_name, 
+                                                         c("Industrial", "Artisanal", "Subsistence", "Recreational"))
+
+sector_data_top_plot %>% 
+  filter(MPA=="GreatBarrierReef") %>% 
+  ggplot(aes(x=cg_name, y=total, fill=Data_Type)) +
+  geom_col(position="dodge") +
+  coord_flip() + 
+  facet_wrap(~sector_name + Data_Type + time_period, ncol=3, scales="free")
+
+sector_data_top_plot %>% 
+  filter(MPA=="Palau") %>% 
+  filter(Data_Type == "Abd") %>% 
+  ggplot(aes(x=cg_name, y=total, fill=Data_Type)) +
+  geom_col(position="dodge") +
+  coord_flip() + 
+  facet_wrap(~sector_name + Data_Type + time_period, ncol=3, scales="free")
+
+sector_data_top_plot %>% 
+  filter(MPA=="BeringSea") %>% 
+  ggplot(aes(x=cg_name, y=total, fill=Data_Type)) +
+  geom_col(position="dodge") +
+  coord_flip() + 
+  facet_wrap(~sector_name + Data_Type + time_period, ncol=3, scales="free")
+
+
+#cowplot::align_plots()
+
+```
+
+```{r delta-data-prep}
+
+
+
+top3_sectors_for_join <- top3_sectors %>% 
+  rename(sector_name = sector_type) %>% 
+  select(-c(catch, value)) %>% 
+  pivot_longer(cols=c(catch_perc, value_perc)) %>% 
+  mutate(name= if_else(name=="catch_perc", "Abd", "revenue")) %>% 
+  rename(Data_Type = name, 
+         baseline_importance=value)
+
+baseline_today <- sector_data_top %>% 
+  filter(time_period=="Today") %>% 
+  select(-c(time_period, n)) %>% 
+  rename(baseline=total)
+  
+sector_data_top_delta <- sector_data_top %>% 
+  left_join(baseline_today) %>% 
+  group_by(MPA, MPA_Name, cg_name, time_period, Data_Type, RCP, Model, sector_type_id) %>% 
+  summarise(total_sum =sum(total, na.rm=TRUE),
+            baseline_sum = sum(baseline, na.rm=TRUE)) %>% 
+  mutate(delta_mean= (total_sum-baseline_sum)/baseline_sum * 100)
+
+sector_data_top_delta <- sector_data_top_delta %>% 
+  left_join(sector_df) %>% 
+  left_join(eez_df) %>% 
+  left_join(top3_sectors_for_join)
+
+sector_data_top_delta$time_period <- forcats::fct_relevel(sector_data_top_delta$time_period, c("Today", "Mid Century", "End of Century"))
+sector_data_top_delta$sector_name <- as.factor(sector_data_top_delta$sector_name)
+sector_data_top_delta$sector_name <- forcats::fct_relevel(sector_data_top_delta$sector_name, 
+                                                         c("Industrial", "Artisanal", "Subsistence", "Recreational"))
+
+sector_data_top_delta <- sector_data_top_delta %>% 
+  filter(!(total_sum==0 & baseline_sum==0))
+
+
+sector_data_top_delta_output <- sector_data_top_delta %>% filter(Data_Type != "flexibility")
+write_csv(sector_data_top_delta_output, "./output/sector_functionalgroup_topfisheries_plot_data.csv")
+#sector_data_top_delta$delta_mean[sector_data_top_delta$delta_mean>200] <- 199 
+
+
+```
+
+```{r delta-plot-functions}
+
+make_legend <- function(plot=NA){
+  plot <- plot + 
+    theme(legend.position="right") 
+  leg <- cowplot::get_legend(plot)
+  return(leg)
+}
+
+sector_delta_plot <- function(sector_data_top_delta=sector_data_top_delta, 
+                                   mpa=NA, measure=NA){
+  p <- sector_data_top_delta %>% 
+    dplyr::filter(MPA==mpa) %>% 
+    dplyr::filter(Data_Type==measure) %>% 
+    dplyr::filter(time_period != "Today") %>% 
+    dplyr::filter(time_period == "Mid Century") %>% 
+    ggplot(aes(x=cg_name, y=delta_mean, fill=delta_mean)) +
+    geom_col(position="dodge", color='black') +
+    labs(y="Percent Change from Present", x= "Commercial Group", fill="% Change") + 
+    theme(legend.position="none") + 
+    geom_hline(yintercept=0, lty="dashed", color="grey30") + 
+    scale_y_continuous(limits=c(-100,200)) + 
+    #scale_fill_viridis_c(limits=c(-100,200)) + 
+    scale_fill_gradient2( limits=c(-100,200), mid="white", midpoint = 0) + 
+    coord_flip() + 
+    facet_wrap(~sector_name, ncol=1, scales="free_y")
+  return(p)
+}
+
+# Not sure about this plot. Thinking about changing it to fill by importance for today's fisheries. 
+# This would give a level of absolute change and its importance. 
+sector_delta_plot_baseline <- function(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure=NA){
+  fill_text <- if_else(measure=="Abd", "Baseline Abundance", "Baseline Revenue")
+  
+  p <- sector_data_top_delta %>%
+    dplyr::filter(MPA==mpa) %>%
+    dplyr::filter(Data_Type==measure) %>%
+    dplyr::filter(time_period != "Today") %>%
+    dplyr::filter(time_period == "Mid Century") %>%
+    ggplot(aes(x=cg_name, y=delta_mean, fill=baseline_sum)) +
+    geom_col(position="dodge", color='black') +
+    labs(y="Percent Change from Present", x= "Commercial Group", fill=fill_text) +
+    theme(legend.position="none") +
+    geom_hline(yintercept=0, lty="dashed", color="grey30") +
+    scale_y_continuous(limits=c(-100,200)) +
+    #scale_fill_viridis_c(limits=c(-100,200)) +
+    scale_fill_gradient2(mid="white", trans="log10") + #limits=c(-100,200),
+    coord_flip() +
+    facet_wrap(~sector_name, ncol=1, scales="free_y")
+  
+  return(p)
+}
+
+
+sector_fg_delta_bubble <- function(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure=NA){
+  size_text <- if_else(measure=="Abd", "Baseline Abundance", "Baseline Revenue")
+  size_breaks <- seq(500000, 2000000, 500000)
+  size_labels <- prettyNum(size_breaks, big.mark=",", scientific=FALSE)
+  x_breaks <- seq(-100, 200, 100)
+  x_labels <- paste0(x_breaks, "%")
+  p <- sector_data_top_delta %>%
+    dplyr::filter(Data_Type==measure) %>%
+    dplyr::filter(time_period != "Today") %>%
+    dplyr::filter(time_period == "Mid Century") %>%
+    ggplot(aes(x=cg_name, y=delta_mean, fill=sector_name, size=baseline_sum)) +
+    geom_point(color='black', shape=21,  alpha=0.7) +
+    scale_y_continuous(breaks = x_breaks, labels=x_labels, limits=c(-100,200)) + 
+    geom_hline(yintercept=0, lty="dashed", color="grey30") +
+    scale_fill_viridis(discrete=TRUE) + #, option="A"
+    scale_size(breaks=size_breaks, labels=size_labels, range = c(2,7)) + 
+    labs(y="Percent Change from Present", x= "Commercial Group", fill="Sector", size=size_text) +
+    #geom_vline(xintercept=as.factor("Scorpionfishes")) + 
+    coord_flip() +
+    facet_wrap(~MPA_Name, ncol=1, scales="free_y")
+    NULL
+  return(p)
+}
+
+
+sector_delta_bubble <- function(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure=NA){
+  size_text <- if_else(measure=="Abd", "Baseline Abundance", "Baseline Revenue")
+  size_breaks <- seq(2000000, 20000000, 5000000)
+  size_labels <- prettyNum(size_breaks, big.mark=",", scientific=FALSE)
+  if(measure=="revenue"){
+    size_labels <- paste0("$", size_labels)
+  }
+  x_breaks <- seq(-100, 200, 100)
+  x_labels <- paste0(x_breaks, "%")
+  p <- sector_data_top_delta %>%
+    dplyr::filter(Data_Type==measure) %>%
+    dplyr::filter(time_period != "Today") %>%
+    dplyr::filter(time_period == "Mid Century") %>%
+    ggplot(aes(x=sector_name, y=delta_mean, fill=cg_name, size=baseline_sum)) +
+    geom_point(color='black', shape=21,  alpha=0.7) +
+    scale_y_continuous(breaks = x_breaks, labels=x_labels, limits=c(-100,200)) + 
+    geom_hline(yintercept=0, lty="dashed", color="grey30") +
+    scale_fill_viridis(discrete=TRUE) + #, option="A"
+    scale_size(breaks=size_breaks, labels=size_labels, range = c(2,10)) + 
+    labs(y="Percent Change from Present", x= "Fishing sector", fill="Commercial Group", size=size_text) +
+    #geom_vline(xintercept=as.factor("Scorpionfishes")) + 
+    coord_flip() +
+    facet_wrap(~MPA_Name, ncol=1, scales="free_y")
+    NULL
+  return(p)
+}
+
+
+mpa_sector_fg_delta_bubble <- function(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA){
+
+  size_breaks <- seq(0, 100, 20)
+  size_labels <- paste0(size_breaks, "%")
+  x_breaks <- seq(-100, 100, 100)
+  x_labels <- paste0(x_breaks, "%")
+  sector_data_top_delta <- sector_data_top_delta %>% 
+    ungroup() %>% 
+    mutate(Data_Type = ifelse(Data_Type=="Abd", "Abundance", Data_Type)) %>% 
+    mutate(Data_Type = ifelse(Data_Type=="revenue", "Revenue", Data_Type))
+  p <- sector_data_top_delta %>%
+    dplyr::filter(MPA==mpa) %>%
+    dplyr::filter(Data_Type %in% c("Abundance", "Revenue")) %>% 
+    dplyr::filter(time_period != "Today") %>%
+    dplyr::filter(time_period == "Mid Century") %>%
+    ggplot(aes(fill=cg_name, y=delta_mean, x=sector_name, size=baseline_importance)) +
+    geom_jitter(color='black', shape=21,  alpha=0.7, width=0.2, height=0) +
+    scale_y_continuous(breaks = x_breaks, labels=x_labels, limits=c(-100,100)) + 
+    geom_hline(yintercept=0, lty="dashed", color="grey30") +
+    scale_fill_manual(values = c('#1b9e77', '#d95f02', '#7570b3', '#e7298a')) + #, option="A"
+    scale_size(breaks=size_breaks, labels=size_labels, range = c(2,7)) + 
+    labs(y="Percent Change from Present", x= "Sector", fill="Commercial Group", size="Baseline Importance") +
+    coord_flip() +
+    facet_wrap(~Data_Type, ncol=1, scales="free_y")
+    NULL
+  return(p)
+}
+mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa="Palau")
+
+```
+
+# Plot Abundance
+```{r delta-plot-abundance}
+
+p_abd <- sector_delta_plot(sector_data_top_delta, mpa="Palau", measure="Abd")
+p_abd <- p_abd + ylab("")
+bs_abd <- sector_delta_plot(sector_data_top_delta, mpa="BeringSea", measure="Abd")
+bs_abd <- bs_abd + xlab("")
+gbr_abd <- sector_delta_plot(sector_data_top_delta, mpa="GreatBarrierReef", measure="Abd")
+gbr_abd <- gbr_abd + xlab("") + ylab("")
+leg <- make_legend(p_abd)
+
+cowplot::plot_grid(p_abd, bs_abd, gbr_abd, leg, align="h", nrow=1, 
+                   rel_widths = c(1,1,1,0.35), 
+                   labels = c("A", "B", "C", "")
+                   #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
+                   )
+
+ggsave("./figs/Delta_Abundance_MidCentury.png", dpi=1200, width = 15, height = 8)
+ggsave("./figs/Delta_Abundance_MidCentury_lowres.png", dpi=100, width = 15, height = 8)
+
+
+```
+
+
+# Plot Abundance with Baseline
+```{r delta-plot-abundance-baseline}
+
+p_abd <- sector_delta_plot_baseline(sector_data_top_delta, mpa="Palau", measure="Abd")
+p_abd <- p_abd + ylab("")
+bs_abd <- sector_delta_plot_baseline(sector_data_top_delta, mpa="BeringSea", measure="Abd")
+bs_abd <- bs_abd + xlab("")
+gbr_abd <- sector_delta_plot_baseline(sector_data_top_delta, mpa="GreatBarrierReef", measure="Abd")
+gbr_abd <- gbr_abd + xlab("") + ylab("")
+leg <- make_legend(p_abd)
+
+cowplot::plot_grid(p_abd, bs_abd, gbr_abd, leg, align="h", nrow=1, 
+                   rel_widths = c(1,1,1,0.35), 
+                   labels = c("A", "B", "C", "")
+                   #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
+                   )
+
+ggsave("./figs/Delta_Abundance_MidCentury_BaselineSizeFill.png", dpi=1200, width = 15, height = 8)
+ggsave("./figs/Delta_Abundance_MidCentury_BaselineSizeFill_lowres.png", dpi=100, width = 15, height = 8)
+
+
+```
+
+# Plot abdundance bubble plot
+```{r}
+sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure="Abd") 
+ggsave("./figs/Delta_Abundance_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_Abundance_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+
+```
+
+
+# Plot revenue bubble plot
+```{r}
+sector_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure="revenue") 
+ggsave("./figs/Delta_Revenue_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+```
+
+
+# Plot abdundance and revenue bubble plot by MPA
+```{r}
+mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa="BeringSea")
+ggsave("./figs/Delta_BeringSea_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_BeringSea_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+
+mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa="GreatBarrierReef")
+ggsave("./figs/Delta_GBR_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_GBR_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+
+
+mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa="Palau")
+ggsave("./figs/Delta_Palau_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_Palau_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+
+
+```
+
+
+# Plot revenue bubble plot by MPA
+```{r}
+mpa_sector_fg_delta_bubble(sector_data_top_delta=sector_data_top_delta,
+                                   mpa=NA, measure="revenue") 
+ggsave("./figs/Delta_Revenue_MidCentury_Bubble2.png", dpi=300, width = 12, height = 6)
+ggsave("./figs/Delta_Revenue_MidCentury_Bubble2_lowres.png", dpi=100, width = 12, height = 6)
+```
+
+
+
+
+# Plot Revenue
+```{r delta-plot-revenue}
+
+sector_data_top_delta
+p_rev <- sector_delta_plot(sector_data_top_delta, mpa="Palau", measure="revenue")
+p_rev <- p_rev + ylab("")
+bs_rev <- sector_delta_plot(sector_data_top_delta, mpa="BeringSea", measure="revenue")
+bs_rev <- bs_rev + xlab("")
+gbr_rev <- sector_delta_plot(sector_data_top_delta, mpa="GreatBarrierReef", measure="revenue")
+gbr_rev <- gbr_rev + xlab("") + ylab("")
+leg <- make_legend(p_rev)
+
+cowplot::plot_grid(p_rev, bs_rev, gbr_rev, leg, align="h", nrow=1, 
+                   rel_widths = c(1,1,1,0.35), 
+                   labels = c("A", "B", "C", "")
+                   #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
+                   )
+
+ggsave("./figs/Delta_Revenue_MidCentury.png", dpi=1200, width = 15, height = 8)
+
+
+```
+
+
+
+# Plot Revenue
+```{r delta-plot-revenue}
+
+
+p_rev <- sector_delta_plot_baseline(sector_data_top_delta, mpa="Palau", measure="revenue")
+p_rev <- p_rev + ylab("")
+bs_rev <- sector_delta_plot_baseline(sector_data_top_delta, mpa="BeringSea", measure="revenue")
+bs_rev <- bs_rev + xlab("")
+gbr_rev <- sector_delta_plot_baseline(sector_data_top_delta, mpa="GreatBarrierReef", measure="revenue")
+gbr_rev <- gbr_rev + xlab("") + ylab("")
+leg <- make_legend(p_rev)
+
+cowplot::plot_grid(p_rev, bs_rev, gbr_rev, leg, align="h", nrow=1, 
+                   rel_widths = c(1,1,1,0.35), 
+                   labels = c("A", "B", "C", "")
+                   #labels = c("Palau", "Bering Sea", "Great Barrier Reef")
+                   )
+
+ggsave("./figs/Delta_Revenue_MidCentury_BaselineSizeFill.png", dpi=1200, width = 15, height = 8)
+
+
+```
+
+

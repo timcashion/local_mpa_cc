@@ -1,0 +1,402 @@
+---
+title: "P2_Map_Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE)
+  sapply(pkg, require, character.only = TRUE)
+}
+
+
+#### Library ###
+packages <- c(
+  "readxl", # Read dataframe
+  "dplyr", # Data manipulation
+  "tidyr", # Data manipulation
+  # "ggpubr", #Nice grpahs and spatial analysis
+  # "RColorBrewer", # For more nice collors
+  "data.table",
+  "stringr", # for string analysis
+  # "gridExtra",
+  "ggmap",
+  "ggplot2",
+  "cowplot", 
+  "rgdal", # Spatial analysis
+  "tools", # Spatial analysis 
+  "sf" # Shapefile packages
+)
+
+ipak(packages)
+```
+
+```{r spat-data}
+
+MPA_Grid <- fread("./data/four_selected_intersect_touching.csv",header = TRUE) %>% 
+  rename(INDEX = Seq,
+         touching=MPA_touchi) %>% 
+  select(INDEX, MPA, touching)
+
+
+Lon_Lat_DBEM <- fread("./data/Lon_Lat_DBEM.txt",header = FALSE)
+colnames(Lon_Lat_DBEM) <- c("INDEX","Longitude","Latitude")    
+
+#mpa_shp <- readOGR("./four_selected_shp/four_selected_mpas.shp")
+mpa_shp <- readOGR("./four_selected_shp/4_selected_dissolved.shp") #Updated to dissolved borders for GBR
+mpa_sf <- st_as_sf(mpa_shp)
+mpa_sf <- mpa_sf %>% 
+  dplyr::filter(!(grepl(NAME, pattern="Charlie-Gibbs"))) %>% 
+  dplyr::select(NAME)
+rm(mpa_shp)
+gc()
+
+mpa_sf$MPA <- NA
+mpa_sf$MPA <- if_else(grepl(mpa_sf$NAME, pattern="Great Barrier"), "GreatBarrierReef", 
+                    if_else(mpa_sf$NAME=="Northern Bering Sea", "BeringSea", "Palau"))
+mpa_sf <- mpa_sf %>% 
+  select(-NAME)
+
+# Testing plots. 
+# x_sf %>% 
+#   filter(MPA=="Great Barrier Reef") %>% 
+#   ggplot() + 
+#   geom_sf()
+
+
+# The path
+path_world <- "./World_Land"
+
+# File name
+file_name <- "TM_WORLD_BORDERS"
+
+#Load it!
+World_Land_sf <- st_read(dsn = path_world, 
+                         layer = tools::file_path_sans_ext(file_name)
+)
+#World_Land_sf <- st_simplify(World_Land_sf, dTolerance=0.01)
+
+# Base plot
+World_Map <- ggplot(World_Land_sf) +
+  geom_sf()
+
+```
+
+
+```{r dbem-data}
+mpa_85 <- data.table::fread("./data/MPA_RCP85_All_GCMs.csv")
+#mpa_26 <- data.table::fread("./Paper_Two_Results/MPA_RCP26_All_GCMs.csv")
+```
+
+
+
+```{r maps}
+
+
+mpas <- left_join(MPA_Grid, Lon_Lat_DBEM)
+#mpas <- mpas %>% rename(MPA=NAME)
+mpas_summary <- mpas %>% 
+  group_by(MPA) %>% 
+  summarize(min_lon = min(Longitude),
+            min_lat = min(Latitude),
+            max_lon = max(Longitude),
+            max_lat = max(Latitude)
+            )
+
+mpa_names <- mpas_summary$MPA
+mpa_names <- mpa_names[mpa_names!="CharlieGibbs"]
+buffer_unit <- 1
+Var <- unique(mpa_85$Data_Type)
+Var <- Var[Var!="flexibility"]
+Var <- Var[Var!="nonuse_value"]
+mpa <- mpa_names[1]
+r <- 2
+v <- 1
+
+time_period_of_interest <- unique(mpa_85$time_period)
+time_period_of_interest <- "Mid Century"
+
+All_Models <- mpa_85
+
+for (mpa in mpa_names){
+  df <- mpas_summary %>% filter(MPA==mpa)
+  map_data <- All_Models %>% 
+    filter(Longitude >= (df$min_lon-buffer_unit) & 
+             Longitude <= (df$max_lon+buffer_unit)) %>% 
+    filter(Latitude >= (df$min_lat-buffer_unit) & 
+             Latitude <= (df$max_lat+buffer_unit)) %>% 
+    filter(time_period %in% time_period_of_interest)
+  assign(mpa, map_data)
+  coast_map <- World_Map +
+    scale_x_continuous(limits=c(df$min_lon-buffer_unit, df$max_lon+buffer_unit)) + 
+    scale_y_continuous(limits=c(df$min_lat-buffer_unit, df$max_lat+buffer_unit))
+
+  
+  for(r in 2:2){ #Change to only produce RCP85
+    for(v in 1:length(Var)){
+      
+      if(r == 1){
+        RCP <- unique(Both_Models26 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v])
+      }else{
+        RCP <- unique(Both_Models85 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v], RCP==RCP)
+      }
+      
+      p <- coast_map + 
+        geom_tile(data = map_data,
+                  aes(
+                    x = Longitude,
+                    y = Latitude,
+                    # fill = log10(total),
+                    # colour = log10(total)
+                    fill = total
+                  ), alpha=0.5
+        ) +
+        #scale_colour_gradient2(na.value = 'transparent', trans='log10') +
+        scale_fill_gradient2(na.value = 'transparent', trans='log10') +
+        #geom_rect(data=df, aes(xmin=min_lon, xmax=max_lon, ymin=min_lat, ymax=max_lat), 
+        #          color="black", fill='transparent', lty='dashed') +
+        geom_sf(dat= mpa_sf %>% dplyr::filter(MPA==mpa), fill='transparent', lty="dashed", color="black") + 
+        # scale_x_continuous(limits=c(df$min_lon-buffer_unit, df$max_lon+buffer_unit)) + 
+        # scale_y_continuous(limits=c(df$min_lat-buffer_unit, df$max_lat+buffer_unit)) + 
+        facet_wrap(~time_period + Model, ncol=2) +
+        labs(fill= str_to_title(Var[v])) + 
+        #ggtitle(paste("RCP",RCP,Var[v])) + 
+        NULL
+      p
+      
+      # Name plot
+      Plot_Name <- paste(mpa, RCP,Var[v],"plot.png",sep="_")
+      Path <- paste(Result_Path,"Figures/Variables",sep="/")
+      
+      # Save plot
+      ggsave(
+        plot = p,
+        width = 14,
+        height = 10,
+        units = "in",
+        filename = Plot_Name,
+        path= Path
+      )
+    }
+  }
+
+}
+
+```
+
+
+
+
+```{r delta-plots}
+Both_Models85 <- All_Models
+
+
+for (mpa in mpa_names){
+  df <- mpas_summary %>% filter(MPA==mpa)
+  future_period <- All_Models %>% 
+    filter(Longitude >= (df$min_lon-buffer_unit) & 
+             Longitude <= (df$max_lon+buffer_unit)) %>% 
+    filter(Latitude >= (df$min_lat-buffer_unit) & 
+             Latitude <= (df$max_lat+buffer_unit)) %>% 
+    filter(time_period %in% time_period_of_interest) %>% 
+    select(-c(time_period, n)) %>% 
+    rename(future_period=total)
+  baseline <- All_Models %>% 
+    filter(Longitude >= (df$min_lon-buffer_unit) & 
+             Longitude <= (df$max_lon+buffer_unit)) %>% 
+    filter(Latitude >= (df$min_lat-buffer_unit) & 
+             Latitude <= (df$max_lat+buffer_unit)) %>% 
+    filter(time_period =="Today") %>% 
+    select(-c(time_period, n)) %>% 
+    rename(baseline=total)
+  map_data <- full_join(baseline, future_period) %>% 
+    filter(Measure=='Mean') %>% 
+    filter(Model == "MPA") %>% 
+    mutate(baseline = ifelse(is.na(baseline), 0, baseline)) %>% 
+    mutate(future_period = ifelse(is.na(future_period), 0, future_period)) %>% 
+    mutate(delta = future_period - baseline) %>% 
+    mutate(perc_change = (delta/ baseline) * 100)
+  
+  assign(mpa, map_data)
+  coast_map <- World_Map +
+    scale_x_continuous(limits=c(df$min_lon-buffer_unit, df$max_lon+buffer_unit)) + 
+    scale_y_continuous(limits=c(df$min_lat-buffer_unit, df$max_lat+buffer_unit))
+  coast_map <- World_Map
+  
+
+  for(r in 2:2){ #Change to only produce RCP85
+    for(v in 1:length(Var)){
+      
+      if(r == 1){
+        RCP <- unique(Both_Models26 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v])
+      }else{
+        RCP <- unique(Both_Models85 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v], RCP==RCP)
+      }
+      
+      p <- coast_map + 
+        geom_tile(data = data,
+                  aes(
+                    x = Longitude,
+                    y = Latitude,
+                    # fill = log10(total),
+                    fill = delta
+                  ), alpha=0.5
+        ) +
+        scale_fill_gradient2(na.value = 'transparent') + #
+        geom_sf(dat= mpa_sf %>% dplyr::filter(MPA==mpa), 
+                fill='transparent', lty="dashed", color="black") + 
+        # scale_x_continuous(limits=c(df$min_lon, df$max_lon), expand=c(0,0)) +
+        # scale_y_continuous(limits=c(df$min_lat, df$max_lat), expand=c(0,0)) +
+        scale_x_continuous(limits=c(df$min_lon-buffer_unit, df$max_lon+buffer_unit), expand=c(0,0)) +
+        scale_y_continuous(limits=c(df$min_lat-buffer_unit, df$max_lat+buffer_unit), expand=c(0,0)) +
+        labs(fill= str_to_title(Var[v])) + 
+        #ggtitle(paste("RCP",RCP,Var[v])) + 
+        NULL
+      p
+      # Name plot
+      Plot_Name <- paste(mpa, RCP,Var[v],"delta_plot.png",sep="_")
+      Path <- paste("./figs",sep="/")
+      print(Plot_Name)
+      # Save plot
+      ggsave(
+        plot = p,
+        width = 14,
+        height = 10,
+        units = "in",
+        filename = Plot_Name,
+        path= Path
+      )
+    }
+  }
+}
+
+
+```
+
+
+
+
+```{r perc-change-plots}
+Both_Models85 <- All_Models
+
+for (mpa in mpa_names){
+  df <- mpas_summary %>% filter(MPA==mpa)
+  future_period <- All_Models %>% 
+    filter(Longitude >= (df$min_lon-buffer_unit) & 
+             Longitude <= (df$max_lon+buffer_unit)) %>% 
+    filter(Latitude >= (df$min_lat-buffer_unit) & 
+             Latitude <= (df$max_lat+buffer_unit)) %>% 
+    filter(time_period %in% time_period_of_interest) %>% 
+    select(-c(time_period, n)) %>% 
+    rename(future_period=total)
+  baseline <- All_Models %>% 
+    filter(Longitude >= (df$min_lon-buffer_unit) & 
+             Longitude <= (df$max_lon+buffer_unit)) %>% 
+    filter(Latitude >= (df$min_lat-buffer_unit) & 
+             Latitude <= (df$max_lat+buffer_unit)) %>% 
+    filter(time_period =="Today") %>% 
+    select(-c(time_period, n)) %>% 
+    rename(baseline=total)
+  map_data <- full_join(baseline, future_period) %>% 
+    filter(Measure=='Mean') %>% 
+    filter(Model == "MPA") %>% 
+    mutate(baseline = ifelse(is.na(baseline), 0, baseline)) %>% 
+    mutate(future_period = ifelse(is.na(future_period), 0, future_period)) %>% 
+    mutate(delta = future_period - baseline) %>% 
+    mutate(perc_change = (delta/ baseline) * 100)
+  
+  assign(mpa, map_data)
+  coast_map <- World_Map +
+    scale_x_continuous(limits=c(df$min_lon-buffer_unit, df$max_lon+buffer_unit)) + 
+    scale_y_continuous(limits=c(df$min_lat-buffer_unit, df$max_lat+buffer_unit)) + 
+    coord_sf()
+  coast_map <- World_Map
+  
+
+  for(r in 2:2){ #Change to only produce RCP85
+    for(v in 1:length(Var)){
+      
+      if(r == 1){
+        RCP <- unique(Both_Models26 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v])
+      }else{
+        RCP <- unique(mpa_85 %>% pull(RCP))
+        data = filter(map_data, Data_Type == Var[v], RCP==RCP)
+      }
+      data <- data %>% 
+        mutate(perc_change = ifelse(perc_change < -50, -50, perc_change),
+               perc_change = ifelse(perc_change > 50, 50, perc_change)
+               )
+      p <- coast_map + 
+        geom_tile(data = data,
+                  aes(
+                    x = Longitude,
+                    y = Latitude,
+                    # fill = log10(total),
+                    fill = perc_change
+                  ), alpha=0.5
+        ) +
+        scale_fill_gradient2(na.value = 'transparent',
+                             limits=c(-50, 50),
+                             breaks = c(-50, 0 , 50),
+                             labels = c("-50%", "0%", "+50%")
+                             ) + #, trans='log10'
+
+        geom_sf(dat= mpa_sf %>% dplyr::filter(MPA==mpa), 
+                fill='transparent', lty="dashed", color="black") + 
+        coord_sf() + 
+        scale_x_continuous(limits=c(df$min_lon, df$max_lon), expand=c(0,0)) +
+        scale_y_continuous(limits=c(df$min_lat, df$max_lat), expand=c(0,0)) +
+        labs(fill=paste0("% change in ", str_to_title(Var[v]))) + 
+        #theme(legend.position="none") + 
+        #ggtitle(paste("RCP",RCP,Var[v])) + 
+        NULL
+      p
+      # Name plot
+      Plot_Name <- paste(mpa, RCP,Var[v],"perc_change_plot.png",sep="_")
+      Path <- paste("./figs",sep="/")
+      print(Plot_Name)
+      # Save plot
+      ggsave(
+        plot = p,
+        width = 14,
+        height = 10,
+        units = "in",
+        filename = Plot_Name,
+        path= Path
+      )
+      assign(Plot_Name, p)
+    }
+  }
+}
+
+mpa <- "GreatBarrierReef"
+v <- 1
+make_legend <- function(plot=NA){
+  plot <- plot + 
+    theme(legend.position="right") 
+  leg <- cowplot::get_legend(plot)
+  return(leg)
+}
+BeringSea_85_Abd_perc_change_plot.png <- BeringSea_85_Abd_perc_change_plot.png + theme(legend.position="none") 
+GreatBarrierReef_85_Abd_perc_change_plot.png <- GreatBarrierReef_85_Abd_perc_change_plot.png + theme(legend.position="none") 
+  
+Palau_85_Abd_perc_change_plot.png <- Palau_85_Abd_perc_change_plot.png + theme(legend.position="none") 
+
+map_legend <- make_legend(BeringSea_85_Abd_perc_change_plot.png)
+
+cowplot::plot_grid(BeringSea_85_Abd_perc_change_plot.png,
+                   GreatBarrierReef_85_Abd_perc_change_plot.png, 
+                   Palau_85_Abd_perc_change_plot.png, 
+                   map_legend, 
+                   align="h", nrow=1, rel_widths = c(1,1,1,0.5))
+
+```
+
+
